@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataHarvest Pro | Advanced Web Scraping Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+        }
+
+        .container {
+            max-width: 1400px !important;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Progress bar CSS removed */
+
+        .sticky-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .glass-blur {
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .testimonial-card {
+            transition: all 0.5s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-transparent" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"></path>
+                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"></path>
+                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"></path>
+                </svg>
+                <span class="ml-2 text-xl font-bold gradient-text">DataHarvest Pro</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#services" class="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
+                <a href="#why-choose-us" class="text-gray-700 hover:text-blue-600 transition-colors">Why Us</a>
+                <a href="#pricing-model" class="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-blue-600 transition-colors">Testimonials</a>
+                <a href="#faq" class="text-gray-700 hover:text-blue-600 transition-colors">FAQ</a>
+            </div>
+            <div>
+                <a href="#contact" class="gradient-bg text-white px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 px-4 bg-gradient-to-b from-white to-blue-50">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="font-bold mb-6 leading-tight" style="font-size: 2.8rem;">
+                        Transform Your Business with <span class="gradient-text">Intelligent Data Harvesting</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Unlock competitive insights and market intelligence with our advanced web scraping solutions. Stay ahead of the competition with real-time data that drives decisions.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#contact" class="gradient-bg text-white px-8 py-3 rounded-full font-medium text-center hover:opacity-90 transition-opacity pulse">
+                            Request Custom Solution
+                        </a>
+                        <a href="#services" class="border border-blue-600 text-blue-600 px-8 py-3 rounded-full font-medium text-center hover:bg-blue-50 transition-colors">
+                            Explore Services
+                        </a>
+                    </div>
+                    <div class="mt-10 flex items-center">
+                        <div class="flex -space-x-2">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=A+B" alt="Avatar">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=C+D" alt="Avatar">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://ui-avatars.com/api/?name=E+F" alt="Avatar">
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-500">Trusted by <span class="font-semibold text-gray-800">500+</span> businesses</p>
+                            <div class="flex items-center mt-1">
+                                <div class="flex">
+                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/></svg>
+                                </div>
+                                <span class="ml-1 text-sm text-gray-500">4.9/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-10 floating">
+                    <svg class="w-full h-auto" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="50" y="50" width="400" height="300" rx="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+                        <rect x="70" y="80" width="360" height="40" rx="5" fill="#f1f5f9"/>
+                        <circle cx="90" cy="100" r="6" fill="#ef4444"/>
+                        <circle cx="110" cy="100" r="6" fill="#f59e0b"/>
+                        <circle cx="130" cy="100" r="6" fill="#10b981"/>
+                        <rect x="70" y="140" width="170" height="190" rx="5" fill="#f1f5f9"/>
+                        <rect x="260" y="140" width="170" height="90" rx="5" fill="#f1f5f9"/>
+                        <rect x="260" y="240" width="170" height="90" rx="5" fill="#f1f5f9"/>
+                        <path d="M90,160 L220,160" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,180 L220,180" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,200 L220,200" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,220 L220,220" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,240 L220,240" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,260 L220,260" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,280 L220,280" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M90,300 L220,300" stroke="#cbd5e1" stroke-width="2"/>
+                        <circle cx="280" cy="170" r="15" fill="url(#grad1)"/>
+                        <path d="M310,165 L410,165" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M310,175 L380,175" stroke="#cbd5e1" stroke-width="2"/>
+                        <circle cx="280" cy="270" r="15" fill="url(#grad1)"/>
+                        <path d="M310,265 L410,265" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M310,275 L380,275" stroke="#cbd5e1" stroke-width="2"/>
+                        <path d="M150,350 L350,350" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/>
+                        <circle cx="150" cy="350" r="8" fill="#3b82f6"/>
+                        <circle cx="350" cy="350" r="8" fill="#8b5cf6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Premium <span class="gradient-text">Services</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Specialized data extraction solutions designed to fuel your e-commerce growth
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-14 h-14 gradient-bg rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">E-commerce Scraping</h3>
+                    <p class="text-gray-600 mb-4">
+                        Extract product data, prices, reviews, and inventory from Amazon, eBay, AliExpress, and other major retailers.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium hover:text-blue-800 transition-colors flex items-center">
+                        Learn More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-14 h-14 gradient-bg rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Google Maps Extraction</h3>
+                    <p class="text-gray-600 mb-4">
+                        Scrape business listings, contact details, reviews, and location data for lead generation.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium hover:text-blue-800 transition-colors flex items-center">
+                        Learn More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-14 h-14 gradient-bg rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Automated Integration</h3>
+                    <p class="text-gray-600 mb-4">
+                        Clean, format, and automatically upload extracted data to your Shopify or WordPress store.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium hover:text-blue-800 transition-colors flex items-center">
+                        Learn More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-14 h-14 gradient-bg rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Dynamic Page Scraping</h3>
+                    <p class="text-gray-600 mb-4">
+                        Extract data from JavaScript-heavy websites and single-page applications with advanced techniques.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium hover:text-blue-800 transition-colors flex items-center">
+                        Learn More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-14 h-14 gradient-bg rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Anti-Block Solutions</h3>
+                    <p class="text-gray-600 mb-4">
+                        Bypass CAPTCHAs, IP blocks, and other anti-scraping measures to ensure continuous data flow.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium hover:text-blue-800 transition-colors flex items-center">
+                        Learn More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <div class="w-14 h-14 gradient-bg rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Competitor Monitoring</h3>
+                    <p class="text-gray-600 mb-4">
+                        Track competitor prices, inventory levels, and product assortments to stay ahead in the market.
+                    </p>
+                    <a href="#contact" class="text-blue-600 font-medium hover:text-blue-800 transition-colors flex items-center">
+                        Learn More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Zero Risk: <span class="gradient-text">Pay-Per-Milestone, Not Upfront</span></h2>
+                <p class="text-lg text-gray-600 mb-10">
+                    Your trust is paramount. We believe in our work. That's why you pay ZERO upfront. We meticulously break down your project into clear, manageable milestones, and you only pay us when you are 100% satisfied with the completion of each step. No risk, pure results.
+                </p>
+                <div class="flex justify-center">
+                    <a href="#contact" class="gradient-bg text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-opacity pulse">
+                        Start Your Risk-Free Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-choose-us" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose <span class="gradient-text">Us?</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    The premium data extraction partner trusted by e-commerce leaders
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Zero-Risk Guarantee</h3>
+                    <p class="text-gray-600">
+                        Pay only after you're satisfied with each milestone. No upfront payments required.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Lightning Fast</h3>
+                    <p class="text-gray-600">
+                        Extract thousands of product listings in hours, not days or weeks.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Precision Engineering</h3>
+                    <p class="text-gray-600">
+                        Python-powered scrapers with 99.9% accuracy and data validation.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Cost Efficiency</h3>
+                    <p class="text-gray-600">
+                        Save up to 70% compared to manual data entry and expensive alternatives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing-model" class="py-20 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    Our Transparent &amp; Risk-Free Pricing Model. <span aria-label="money" role="img">💰</span>
+                </h2>
+                <p class="text-lg text-gray-600 mb-10">
+                  We offer crystal clear, project-based pricing meticulously tailored to your specific  needs.
+                </p>
+                <h3 class="text-2xl font-semibold mb-6 mt-8">Here's How Our Risk-Free Process Works:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-10">
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                        <div class="flex items-center mb-3">
+                            <span class="gradient-bg text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3">1</span>
+                            <h4 class="text-xl font-semibold text-gray-800">Share Your Needs <span aria-label="memo" role="img">📝</span></h4>
+                        </div>
+                        <p class="text-gray-600">
+                            Begin by filling out our straightforward inquiry form below. Provide us with the essential details about your project and specific data requirements. It's quick, easy, and the first step towards automation.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                        <div class="flex items-center mb-3">
+                             <span class="gradient-bg text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3">2</span>
+                            <h4 class="text-xl font-semibold text-gray-800">Connect &amp; Clarify <span aria-label="phone" role="img">📞</span></h4>
+                        </div>
+                        <p class="text-gray-600">
+                            We'll promptly schedule a brief, no-obligation video meeting (via Google Meet). This crucial step allows us to dive deep into your project, ensuring we fully grasp your objectives and challenges.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                        <div class="flex items-center mb-3">
+                             <span class="gradient-bg text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3">3</span>
+                            <h4 class="text-xl font-semibold text-gray-800">Custom Quote &amp; Milestone Plan <span aria-label="chart" role="img">📊</span></h4>
+                        </div>
+                        <p class="text-gray-600">
+                            Following our detailed discussion, we'll provide you with a precise, competitive project estimate. We then strategically break down the entire scope of work into 3-4 manageable, clearly defined milestones.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                        <div class="flex items-center mb-3">
+                             <span class="gradient-bg text-white rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold mr-3">4</span>
+                            <h4 class="text-xl font-semibold text-gray-800">Pay Upon Satisfaction <span aria-label="check" role="img">✅</span></h4>
+                        </div>
+                        <p class="text-gray-600">
+                            This is our commitment to you: You pay only after each milestone is completed to your absolute satisfaction. There's zero upfront payment, ensuring a completely risk-free partnership for you!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Client <span class="gradient-text">Testimonials</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    See what our clients say about our data harvesting solutions
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm testimonial-card">
+                    <div class="flex items-center mb-6">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">
+                        "DataHarvest Pro transformed our e-commerce strategy. Their competitor price monitoring solution helped us optimize our pricing and increase sales by 32% in just three months."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-blue-600 font-semibold">JM</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">James Miller</h4>
+                            <p class="text-sm text-gray-500">E-commerce Director, TechRetail</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm testimonial-card">
+                    <div class="flex items-center mb-6">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">
+                        "The automated store integration saved us countless hours of manual work. Now our inventory is always in sync across multiple platforms, and we've eliminated overselling issues completely."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-blue-600 font-semibold">SC</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Sarah Chen</h4>
+                            <p class="text-sm text-gray-500">Operations Manager, FashionMart</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-sm testimonial-card">
+                    <div class="flex items-center mb-6">
+                        <div class="flex">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">
+                        "Their geo-targeted data harvesting solution helped us identify prime locations for our new branches. The quality and accuracy of the data exceeded our expectations."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-blue-600 font-semibold">RJ</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Robert Johnson</h4>
+                            <p class="text-sm text-gray-500">Expansion Director, CaféChain</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Everything you need to know about our services
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="faq-item active py-6">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">What websites can you scrape data from?</h3>
+                        <svg class="w-6 h-6 text-blue-600 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer pt-4 text-gray-600">
+                        <p>We can extract data from virtually any website, including e-commerce platforms (Amazon, eBay, AliExpress, Walmart), directories (Google Maps, Yelp, TripAdvisor), and custom portals as required.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item py-6">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">Is web scraping legal?</h3>
+                        <svg class="w-6 h-6 text-blue-600 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer pt-4 text-gray-600">
+                        <p>Web scraping is legal when done ethically and in compliance with website terms of service. We strictly adhere to robots.txt files and implement rate limiting to avoid overloading servers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item py-6">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">How do you handle CAPTCHAs and anti-bot measures?</h3>
+                        <svg class="w-6 h-6 text-blue-600 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer pt-4 text-gray-600">
+                        <p>We employ multiple strategies including CAPTCHA-solving services, IP rotation, headless browsers with human-like behavior patterns, and other proprietary techniques to bypass anti-bot measures.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item py-6">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">What formats can you deliver the data in?</h3>
+                        <svg class="w-6 h-6 text-blue-600 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer pt-4 text-gray-600">
+                        <p>We provide data in any format you need: CSV, Excel (XLS/XLSX), JSON, XML, or direct API integration with your Shopify, WooCommerce, or custom database. We can also set up automated workflows as needed.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item py-6">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">How does the milestone payment system work?</h3>
+                        <svg class="w-6 h-6 text-blue-600 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer pt-4 text-gray-600">
+                        <p>Projects are divided into 3-4 clear milestones. You only pay for a milestone after approving the delivered work. For example: 1) Initial data sample (20% payment), 2) Full data extraction (40%), 3) Integration & final delivery (40%).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Harness the Power of Data?</h2>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto mb-10">
+                Get started today and discover how our data harvesting solutions can transform your business decisions and drive growth.
+            </p>
+            <a href="#contact" class="bg-white text-blue-600 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition-colors inline-block pulse">
+                Schedule a Free Consultation
+            </a>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Get in <span class="gradient-text">Touch</span></h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+                        Ready to Automate Your Success? <span aria-label="rocket" role="img">🚀</span>
+                    </p>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">
+                      Let's discuss your unique data needs. We're here to listen, offer expert guidance, and deliver a solution that fits your business perfectly.
+                       Just fill out the form below and our team will reach out soon.
+                  </p>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl shadow-lg p-8 md:p-12">
+                    <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-1">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
+                        </div>
+
+                        <div class="md:col-span-1">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label for="company" class="block text-gray-700 font-medium mb-2">Company Name</label>
+                            <input type="text" id="company" name="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label for="project" class="block text-gray-700 font-medium mb-2">Project Details</label>
+                            <textarea id="project" name="project" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" placeholder="Describe your data needs, target websites, and any special requirements." required></textarea>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <button type="submit" class="gradient-bg text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-opacity pulse w-full md:w-auto">Submit Inquiry</button>
+                        </div>
+                        <div class="md:col-span-2 text-center mt-6">
+                            <p class="text-sm text-gray-500 italic">
+                                We respect your privacy. All information is confidential. No obligation, no upfront payment.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-blue-900 text-white py-10 mt-12">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 flex items-center">
+                <svg class="w-8 h-8 text-blue-300 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"></path>
+                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"></path>
+                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"></path>
+                </svg>
+                <span class="font-bold text-xl" style="background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent;">DataHarvest Pro</span>
+            </div>
+            <div class="flex flex-col md:flex-row md:space-x-8 text-center md:text-left mb-6 md:mb-0">
+                <a href="#services" class="text-blue-100 hover:text-white transition-colors mb-2 md:mb-0">Services</a>
+                <a href="#why-choose-us" class="text-blue-100 hover:text-white transition-colors mb-2 md:mb-0">Why Us</a>
+                <a href="#pricing-model" class="text-blue-100 hover:text-white transition-colors mb-2 md:mb-0">Pricing</a>
+                <a href="#testimonials" class="text-blue-100 hover:text-white transition-colors mb-2 md:mb-0">Testimonials</a>
+                <a href="#faq" class="text-blue-100 hover:text-white transition-colors">FAQ</a>
+            </div>
+            <div class="text-blue-200 text-sm text-center md:text-right">
+                &copy; <span id="footerYear"></span> DataHarvest Pro. All rights reserved.
+                <br>
+                <span class="text-xs">Designed with <span class="text-red-400">❤</span> for data-driven businesses.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress bar script removed
+
+        // Navbar glass effect on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 40) {
+                navbar.classList.add('glass-blur');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('glass-blur');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+
+        // FAQ toggle animation
+        document.querySelectorAll('.faq-question').forEach(function(el) {
+            el.addEventListener('click', function() {
+                const item = el.closest('.faq-item');
+                const currentlyActive = item.classList.contains('active');
+
+                document.querySelectorAll('.faq-item').forEach(function(other) {
+                    other.classList.remove('active');
+                });
+
+                if (!currentlyActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Footer year
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    </script>
+</body>
+</html>
